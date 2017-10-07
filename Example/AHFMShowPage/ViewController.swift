@@ -17,7 +17,8 @@ import AHFMAudioPlayerManager
 import AHFMBottomPlayerManager
 import AHFMAudioPlayerManager
 import AHFMShowPageManger
-
+import AHFMDownloadCenterManager
+import AHFMDownloaderManager
 
 import AHFMBottomPlayerServices
 import AHFMShowPageServices
@@ -34,6 +35,8 @@ class ViewController: UIViewController {
         AHFMBottomPlayerManager.activate()
         AHFMAudioPlayerManager.activate()
         AHFMShowPageManger.activate()
+        AHFMDownloadCenterManager.activate()
+        AHFMDownloaderManager.activate()
     }
 
     override func viewWillAppear(_ animated: Bool) {

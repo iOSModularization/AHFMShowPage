@@ -206,7 +206,8 @@ extension AHFMShowPageVC {
         super.viewDidAppear(animated)
         if shouldCheckCurrentEpisode {
             checkCurrentEpisode()
-            shouldCheckCurrentEpisode = false
+        }else{
+            shouldCheckCurrentEpisode = true
         }
         
     }
@@ -216,6 +217,8 @@ extension AHFMShowPageVC {
         
         if self.presentedViewController != nil {
             // there's a vc presented by this vc
+            // it could be a episodelistVC from bottomPlayer, or a introVC from this VC.
+            shouldCheckCurrentEpisode = false
         }else{
             navBar.setBackgroundImage(nil, for: .default)
             navBar.shadowImage = nil

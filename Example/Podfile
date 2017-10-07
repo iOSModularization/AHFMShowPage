@@ -17,11 +17,16 @@ pod 'AHFMDataTransformers'
 pod 'AHFMServices'
 pod 'AHFMModuleManager'
 
+pod 'AHFMDownloaderManager'
+
 pod 'AHFMShowPageManger'
 pod 'AHFMShowPageServices'
 
 pod 'AHAudioPlayer'
 pod 'AHFMAudioPlayerManager'
+
+pod 'AHFMDownloadCenter'
+pod 'AHFMDownloadCenterManager'
 
 pod 'AHFMDownloadList'
 pod 'AHFMDownloadListManager'
