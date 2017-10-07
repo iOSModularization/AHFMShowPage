@@ -70,7 +70,7 @@ public final class AHFMShowPageVC: UIViewController {
             }
         }
     }
-
+    
     var episodes: [Episode]? {
         didSet {
             if let episodes = episodes {
@@ -111,7 +111,7 @@ public final class AHFMShowPageVC: UIViewController {
     // determine wether or not to call checkCurrentEpisode()
     fileprivate var shouldCheckCurrentEpisode = true
     
-
+    
 }
 
 //MARK:- Loading Methods
@@ -142,13 +142,14 @@ extension AHFMShowPageVC {
     /// data example: ["showId": Int, "isSubcribed": Bool]
     /// isSubcribed is the current state after this method is called.
     public func loadSubscribeOrUnSubcribeShow(_ data: [String:Any]?) {
+        SVProgressHUD.dismiss()
         guard let data = data, let showId = data["showId"] as? Int,
             let isSubcribed = data["isSubcribed"] as? Bool,
             let show = self.show,
             show.id == showId else {
                 
-            showHeader.isSubscribed = false
-            return
+                showHeader.isSubscribed = false
+                return
         }
         
         showHeader.isSubscribed = isSubcribed
@@ -193,7 +194,7 @@ extension AHFMShowPageVC {
         navBar.barStyle = .black
         
         manager?.viewWillAppear(self)
-
+        
         
         
         SVProgressHUD.show()
@@ -284,7 +285,7 @@ extension AHFMShowPageVC: UITableViewDelegate {
         guard navBar != nil else {
             return
         }
-
+        
         if scrollView === currentTableView {
             handleEpisodeShowHeader(scrollView)
             handleEpisodeSectionView(scrollView)
@@ -295,13 +296,13 @@ extension AHFMShowPageVC: UITableViewDelegate {
         
         
     }
-
+    
     public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if playingMode {
             if scrollView.contentOffset.y < playingModeOffsetY {
-                 playingModeOffsetY = scrollView.contentOffset.y
+                playingModeOffsetY = scrollView.contentOffset.y
             }
-           
+            
         }
     }
     
@@ -313,7 +314,7 @@ extension AHFMShowPageVC: UITableViewDelegate {
             return
         }
         let ep = eps[indexPath.row]
-
+        
         let state = ep.downloadState
         switch state {
         case .notStarted:
@@ -479,7 +480,7 @@ extension AHFMShowPageVC {
                 //                print("offsetY:\(scrollView.contentOffset.y) y_inset:\(y_inset) delta:\(delta) SectionOriginY - delta:\(SectionOriginY - delta)")
                 let toolDelta = showHeader.frame.maxY - navBar.frame.maxY
                 let toolTotal = ShowHeaderOriginY + ShowHeaderHeight
-
+                
                 //######
                 var alpha = toolDelta / toolTotal
                 // A quick fix for toolView?.alpha remaining at 0.748, but reaching 1.
@@ -597,15 +598,21 @@ extension AHFMShowPageVC: AHFMShowHeaderDelegate {
             return
         }
         if header.isSubscribed {
-            manager?.showPageVC(self, shouldSubscribeOrUnSubcribeShow: show.id, shouldSubscribed: false)
+            self.manager?.showPageVC(self, shouldSubscribeOrUnSubcribeShow: show.id, shouldSubscribed: false)
             
         }else{
             SVProgressHUD.show()
-            manager?.showPageVC(self, shouldSubscribeOrUnSubcribeShow: show.id, shouldSubscribed: false)
+            // fake networking delay
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.manager?.showPageVC(self, shouldSubscribeOrUnSubcribeShow: show.id, shouldSubscribed: true)
+            }
+            
         }
+        
+        
     }
-
-
+    
+    
     public func showHeaderShareBtnTapped(_ header: AHFMShowHeader){
         print("showHeaderShareBtnTapped")
     }
@@ -803,9 +810,9 @@ extension AHFMShowPageVC {
         
         // NavBar, on the top of the view hierarchy
         let navBar = self.navigationController!.navigationBar
-//        navBar.setBackgroundImage(UIImage(), for: .default)
-//        navBar.shadowImage = UIImage()
-//        navBar.isTranslucent = true
+        //        navBar.setBackgroundImage(UIImage(), for: .default)
+        //        navBar.shadowImage = UIImage()
+        //        navBar.isTranslucent = true
         
         let backImage = UIImage(name: "back", user: self)?.withRenderingMode(.alwaysOriginal)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style: .plain, target: self, action: #selector(backBtnTapped(_:)))
@@ -816,9 +823,9 @@ extension AHFMShowPageVC {
         titleLabel.textColor = UIColor.white
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.systemFont(ofSize: 17.0)
-    
+        
         self.navigationItem.titleView = titleLabel
-
+        
         self.navBar = navBar
     }
 }
