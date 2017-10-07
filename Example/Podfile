@@ -1,0 +1,53 @@
+use_frameworks!
+
+
+source 'https://github.com/iOSModularization/AHFMSpecs.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'AHFMShowPage_Example' do
+  pod 'AHFMShowPage', :path => '../'
+
+
+pod 'AHServiceRouter'
+
+pod 'AHFMDataCenter'
+pod 'AHFMNetworking'
+pod 'AHFMDataTransformers'
+
+pod 'AHFMServices'
+pod 'AHFMModuleManager'
+
+pod 'AHFMShowPageManger'
+pod 'AHFMShowPageServices'
+
+pod 'AHAudioPlayer'
+pod 'AHFMAudioPlayerManager'
+
+pod 'AHFMDownloadList'
+pod 'AHFMDownloadListManager'
+pod 'AHFMDownloadListServices'
+
+pod 'AHFMAudioPlayerVC'
+pod 'AHFMAudioPlayerVCManager'
+pod 'AHFMAudioPlayerVCServices'
+
+pod 'AHFMEpisodeListVC'
+pod 'AHFMEpisodeListVCManager'
+
+pod 'AHFMHistoryVC'
+pod 'AHFMHistoryVCManager'
+
+pod 'AHFMEpisodeListVC'
+pod 'AHFMAudioPlayerManager'
+
+pod 'AHFMBottomPlayer'
+pod 'AHFMBottomPlayerManager'
+pod 'AHFMBottomPlayerServices'
+
+
+  target 'AHFMShowPage_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
