@@ -195,12 +195,14 @@ extension AHFMShowPageVC {
         
         manager?.viewWillAppear(self)
         
-        
-        
-        SVProgressHUD.show()
-        manager?.showPageVCShouldLoadInitialShow(self)
-        
-        
+        if self.presentedViewController != nil {
+            // there's a vc presented by this vc
+            // it could be a episodelistVC from bottomPlayer, or a introVC from this VC.
+            
+        }else{
+            SVProgressHUD.show()
+            manager?.showPageVCShouldLoadInitialShow(self)
+        }
     }
     
     public override func viewDidAppear(_ animated: Bool) {
@@ -819,7 +821,7 @@ extension AHFMShowPageVC {
         
         
         titleLabel.frame.size = CGSize(width: 200, height: 64)
-        titleLabel.text = "Title Undefined"
+        titleLabel.text = ""
         titleLabel.textColor = UIColor.white
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.systemFont(ofSize: 17.0)
