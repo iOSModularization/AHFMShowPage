@@ -135,6 +135,7 @@ extension AHFMShowPageVC {
             eps.append(ep)
         }
         self.episodes = eps
+        self.currentTableView.reloadData()
         SVProgressHUD.dismiss()
     }
     
@@ -664,7 +665,7 @@ extension AHFMShowPageVC {
         }
         let state = AHDownloader.getState(url)
         self.episodes?[indexPath.row].downloadState = state
-        
+        print("AAAA")
         updateEpisodeCell(for: indexPath, state: state)
         
     }
@@ -674,7 +675,7 @@ extension AHFMShowPageVC {
         guard let cell = currentTableView.cellForRow(at: indexPath) as? AHFMShowPageCell else {
             return
         }
-        
+        print("BBB")
         
         switch state {
         case .notStarted:
